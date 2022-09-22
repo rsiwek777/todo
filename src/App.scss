@@ -1,0 +1,59 @@
+@use 'sass:math';
+
+$base: 16px;
+$img_path: './images';
+
+html,
+body {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+	background-color: bisque;
+	font-size: $base;
+}
+
+@function rem($value, $base: $base) {
+	@return math.div($value, $base) * 1rem;
+}
+.tasks {
+	list-style: none;
+	padding-left: 0;
+	.task {
+		display: flex;
+		align-items: center;
+		&:hover .task-delete {
+			display: inline-block;
+		}
+	}
+}
+.status {
+	display: inline-block;
+	width: rem(30px);
+	height: rem(30px);
+	background-image: url('#{$img_path}/status_active.svg');
+	background-size: contain;
+	margin-right: 10px;
+	cursor: pointer;
+
+	&.active {
+		background-image: url('#{$img_path}/status_done.svg');
+
+		& + span {
+			text-decoration: line-through;
+			opacity: 0.3;
+		}
+	}
+}
+
+.task-delete {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	display: none;
+	color: red;
+}
+
+.filter-active {
+	border: rem(1px) solid red;
+}
