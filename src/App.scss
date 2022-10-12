@@ -1,0 +1,145 @@
+@use 'sass:math';
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+$base: 16px;
+$img_path: './images';
+$font_weight: 300;
+$font_family: 'Quicksand', sans-serif;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	background-color: #eeeeee;
+	font-size: $base;
+	font-family: $font_family;
+}
+
+@function rem($value, $base: $base) {
+	@return math.div($value, $base) * 1rem;
+}
+
+.App {
+	width: 100%;
+	background-color: #ffffff;
+	display: flex;
+	border-radius: 10px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	box-shadow: rgba(188, 36, 132, 0.4) 5px 5px, rgba(204, 39, 144, 0.3) 10px 10px, rgba(196, 37, 138, 0.2) 15px 15px,
+		rgba(193, 38, 136, 0.1) 20px 20px, rgba(167, 31, 117, 0.05) 25px 25px;
+	.input {
+		width: 100%;
+		font-size: rem(25px);
+		padding: rem(10px) rem(15px) rem(10px);
+		font-family: $font_family;
+		font-weight: $font_weight;
+		border: none;
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+		margin: rem(5px);
+		&::placeholder {
+			color: #8080808a;
+			font-family: $font_family;
+			font-weight: $font_weight;
+		}
+	}
+}
+.heading {
+	font-size: rem(120px);
+	color: rgba(240, 46, 170, 0.5);
+	opacity: 0.5;
+	font-weight: $font_weight;
+	margin: 0 rem(80px);
+}
+.tasks {
+	list-style: none;
+	padding-left: 0;
+	width: 100%;
+	.task {
+		display: flex;
+		align-items: center;
+		&:hover .task-delete {
+			display: inline-block;
+		}
+	}
+	li {
+		display: inline-block;
+		width: 100%;
+		position: relative;
+		font-size: rem(20px);
+		font-weight: $font_weight;
+	}
+	li:nth-child(odd) {
+		background: rgba(239, 76, 180, 0.05);
+	}
+}
+.status {
+	display: inline-block;
+	width: rem(30px);
+	height: rem(30px);
+	background-image: url('#{$img_path}/status_active.svg');
+	background-size: contain;
+	margin-right: 10px;
+	cursor: pointer;
+
+	&.active {
+		background-image: url('#{$img_path}/status_done.svg');
+
+		& + span {
+			text-decoration: line-through;
+			opacity: 0.3;
+		}
+	}
+}
+
+.task-delete {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	display: none;
+	color: #a30000;
+	position: absolute;
+	right: rem(15px);
+	bottom: 0;
+	font-size: rem(30px);
+	font-family: $font_family;
+	font-weight: $font_weight;
+}
+
+.filter-active {
+	padding: rem(3px);
+	border: rem(1px) solid rgba(240, 46, 170, 0.5) !important;
+	border-radius: rem(3px);
+}
+.bottom {
+	margin-top: rem(30px);
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: rem(10px) rem(20px);
+	color: #808080;
+	.buttons {
+		display: flex;
+		gap: rem(10px);
+	}
+	button {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		color: #808080;
+		font-family: $font_family;
+		&:hover {
+			color: #000000;
+		}
+	}
+}
